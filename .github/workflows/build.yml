@@ -1,0 +1,50 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - 'release/*'
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Avoid shallow clone so nbgv can do its work.
+      - name: Validate branch name
+        uses: deepakputhraya/action-branch-name@v1.0.0
+        with:
+          regex: '([a-z])+\/([a-z])+'
+          allowed_prefixes: 'feature,fix,revert,dependabot'
+          ignore: master,develop
+          min_length: 3 # Min length of the branch name
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x # SDK Version to use. We start by installing 3.1.* for msbuild to use when building DotnetFullOnly. This is replaced later, by 5.0.*
+      - name: Setup Nuget
+        uses: nuget/setup-nuget@v1.0.5
+      - name: Setup NuGet Bjorhn Source
+        run: nuget sources add -Name "DataAutomationFramework" -Source "https://nuget.pkg.github.com/data-automation-framework/index.json" -UserName "bjorhn" -Password "${{ secrets.GITHUB_TOKEN }}"
+        shell: cmd
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+      - name: Restore nuget packages with MSBuild
+        run: msbuild Daf.Core.Ssis_DotnetFullOnly.sln -t:restore
+      - name: Build with MSBuild
+        run: msbuild Daf.Core.Ssis_DotnetFullOnly.sln /property:Configuration=Release
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.201 # SDK Version to use.
+      - name: Build .NET Core projects
+        run: dotnet build Daf.Core.Ssis_DotnetCoreOnly.sln --configuration Release
+      - name: Run dotnet unit tests
+        run: dotnet test Daf.Core.Ssis_DotnetCoreOnly.sln --configuration Release --nologo

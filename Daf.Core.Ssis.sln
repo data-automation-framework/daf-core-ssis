@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Daf.Core.Ssis", "Daf.Core.Ssis\Daf.Core.Ssis.csproj", "{F007DE55-95D4-4376-AEBC-E30B8AEC95AE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Daf.Core.Ssis.Wrapper", "Daf.Core.Ssis.Wrapper\Daf.Core.Ssis.Wrapper.csproj", "{97B27D66-8813-46DB-AFD2-CDACEDB8F47B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daf.Core.Ssis.Workaround", "Daf.Core.Ssis.Workaround\Daf.Core.Ssis.Workaround.csproj", "{F1307920-E3FC-439E-B172-F33854FE5F72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4C39B572-5B7B-4235-9E4A-1B49F1887036}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.globalconfig = .globalconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F007DE55-95D4-4376-AEBC-E30B8AEC95AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F007DE55-95D4-4376-AEBC-E30B8AEC95AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F007DE55-95D4-4376-AEBC-E30B8AEC95AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F007DE55-95D4-4376-AEBC-E30B8AEC95AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97B27D66-8813-46DB-AFD2-CDACEDB8F47B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97B27D66-8813-46DB-AFD2-CDACEDB8F47B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97B27D66-8813-46DB-AFD2-CDACEDB8F47B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97B27D66-8813-46DB-AFD2-CDACEDB8F47B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1307920-E3FC-439E-B172-F33854FE5F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1307920-E3FC-439E-B172-F33854FE5F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1307920-E3FC-439E-B172-F33854FE5F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1307920-E3FC-439E-B172-F33854FE5F72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2995110F-6A75-43BB-976C-B7E0D05C3B30}
+	EndGlobalSection
+EndGlobal

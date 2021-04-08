@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daf.Core.Ssis.Workaround", "Daf.Core.Ssis.Workaround\Daf.Core.Ssis.Workaround.csproj", "{F1307920-E3FC-439E-B172-F33854FE5F72}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Daf.Core.Ssis.Wrapper", "Daf.Core.Ssis.Wrapper\Daf.Core.Ssis.Wrapper.csproj", "{B85397ED-7398-485D-A404-5EF63429C616}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3980B629-979A-4931-BFE8-1E59FBBF8D80}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.globalconfig = .globalconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1307920-E3FC-439E-B172-F33854FE5F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1307920-E3FC-439E-B172-F33854FE5F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1307920-E3FC-439E-B172-F33854FE5F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1307920-E3FC-439E-B172-F33854FE5F72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B85397ED-7398-485D-A404-5EF63429C616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B85397ED-7398-485D-A404-5EF63429C616}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B85397ED-7398-485D-A404-5EF63429C616}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B85397ED-7398-485D-A404-5EF63429C616}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {215F4D87-DA89-4A0C-A762-FDF62F2F0FEA}
+	EndGlobalSection
+EndGlobal

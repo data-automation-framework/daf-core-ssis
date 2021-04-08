@@ -1,0 +1,7 @@
+[*.cs]
+
+#### Code analysis ####
+
+# CA9998: Migrate from FxCop analyzers to .NET analyzers
+# Migrating isn't going to work for this legacy .NET Full project.
+dotnet_diagnostic.CA9998.severity = none

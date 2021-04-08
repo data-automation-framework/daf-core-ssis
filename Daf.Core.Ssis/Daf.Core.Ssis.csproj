@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/data-automation-framework/daf-core-ssis</RepositoryUrl>
+    <PackageId>Daf.Core.Ssis</PackageId>
+    <Description>SSIS plugin for Daf.</Description>
+    <Authors>bjorhn;petlofg</Authors>
+    <PackageTags>Data Automation Framework;DW;Data Warehouse;ETL;SQL Server;SSIS;Integration Services</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+    <ItemGroup>
+    <Content Include="../Daf.Core.Ssis.Workaround/bin/Release/SsisWorkaround.exe;../Daf.Core.Ssis.Workaround/bin/Release/SsisWorkaround.exe.config;../Daf.Core.Ssis.Workaround/bin/Release/Daf.Core.Ssis.Wrapper.dll;../Daf.Core.Ssis.Workaround/bin/Release/Daf.Core.Sdk.dll;../Daf.Core.Ssis.Workaround/bin/Release/CommandLine.dll;../Daf.Core.Ssis.Workaround/bin/Release/Contrib.Bcl.Ranges.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\net48\Daf.Core.Ssis.Workaround</PackagePath>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Daf.Core.Sdk" Version="0.0.2" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
