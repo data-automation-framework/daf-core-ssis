@@ -49,11 +49,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.x # SDK Version to use. We start by installing 3.1.* for msbuild to use when building DotnetFullOnly. This is replaced later, by 5.0.*
-      - name: Setup Nuget
-        uses: nuget/setup-nuget@v1.0.5
-      - name: Setup NuGet DataAutomationFramework Source
-        run: nuget sources add -Name "DataAutomationFramework" -Source "https://nuget.pkg.github.com/data-automation-framework/index.json" -UserName "bjorhn" -Password "${{ secrets.GITHUB_TOKEN }}"
-        shell: cmd
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
       - name: Restore nuget packages with MSBuild
@@ -64,7 +59,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.x # SDK Version to use.
-          source-url: https://nuget.pkg.github.com/data-automation-framework/index.json
+          source-url: https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build .NET Core projects
@@ -72,7 +67,7 @@ jobs:
       - name: Create the nuget package
         run: dotnet pack Daf.Core.Ssis/Daf.Core.Ssis.csproj --configuration Release --output Daf.Core.Ssis/bin/Release/Publish
       - name: Publish to GitHub
-        run: dotnet nuget push Daf.Core.Ssis/bin/Release/Publish/**/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push Daf.Core.Ssis/bin/Release/Publish/**/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET }}
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
