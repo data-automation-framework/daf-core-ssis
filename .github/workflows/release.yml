@@ -51,6 +51,9 @@ jobs:
           dotnet-version: 3.1.x # SDK Version to use. We start by installing 3.1.* for msbuild to use when building DotnetFullOnly. This is replaced later, by 5.0.*
       - name: Setup Nuget
         uses: nuget/setup-nuget@v1.0.5
+      - name: Setup NuGet Bjorhn Source
+        run: nuget sources add -Name "Nuget" -Source "https://api.nuget.org/v3/index.json"
+        shell: cmd
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
       - name: Restore nuget packages with MSBuild
