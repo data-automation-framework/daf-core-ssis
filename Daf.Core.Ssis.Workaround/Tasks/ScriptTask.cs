@@ -74,10 +74,9 @@ namespace Daf.Core.Ssis.Tasks
 
 			foreach (AssemblyReference reference in assemblyReferences)
 			{
+				// Set proper DLL version in case of multiple SSIS versions
 				if (reference.AssemblyPath.StartsWith("Microsoft.SqlServer", StringComparison.InvariantCulture))
-				{
 					reference.AssemblyPath += ", Version=" + (int)sqlServerVersion + ".*";
-				}
 			}
 
 			IEnumerable<string> assemblyPaths = assemblyReferences.ConvertAll(assemblyReference => assemblyReference.AssemblyPath);
