@@ -39,13 +39,15 @@ namespace Daf.Core.Ssis
 
 		private static void GenerateProjects(List<SsisProject> projects)
 		{
-			int i = 0;
+			int numGenerated = 0;
 
 			foreach (SsisProject ssisProject in projects)
 			{
-				// This assumes that we only have one project in the collection, since we currently don't support multiple projects.
-				if (i == 0)
-					Wrapper.AssemblyLoader.VersionNumber = (int)ssisProject.TargetSqlServerVersion;
+				System.Diagnostics.Stopwatch projectTimer = System.Diagnostics.Stopwatch.StartNew();
+
+				Console.WriteLine($"Generating SSIS project \"{ssisProject.Name}\" {(projects.Count > 1 ? $"({numGenerated} / {projects.Count})" : "")}");
+
+				Wrapper.AssemblyLoader.VersionNumber = (int)ssisProject.TargetSqlServerVersion;
 
 				try
 				{
@@ -63,7 +65,13 @@ namespace Daf.Core.Ssis
 					throw;
 				}
 
-				i++;
+				projectTimer.Stop();
+
+				string duration = TimeSpan.FromMilliseconds(projectTimer.ElapsedMilliseconds).ToString(@"hh\:mm\:ss\.fff", CultureInfo.InvariantCulture);
+
+				Console.WriteLine($"Generated SSIS project {ssisProject.Name} in {duration}");
+
+				numGenerated++;
 			}
 		}
 	}

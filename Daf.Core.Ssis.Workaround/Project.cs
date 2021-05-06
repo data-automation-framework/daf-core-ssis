@@ -15,8 +15,7 @@ namespace Daf.Core.Ssis
 {
 	internal class Project
 	{
-		// TODO: This shouldn't be global, it prevents us from handling multiple projects per build.
-		internal static List<ScriptProject> GlobalScriptProjects { get; } = new List<ScriptProject>();
+		internal List<ScriptProject> GlobalScriptProjects { get; } = new List<ScriptProject>();
 
 		public Project(SsisProject ssisProject)
 		{
