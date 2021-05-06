@@ -39,10 +39,13 @@ namespace Daf.Core.Ssis
 
 		private static void GenerateProjects(List<SsisProject> projects)
 		{
+			int i = 0;
+
 			foreach (SsisProject ssisProject in projects)
 			{
 				// This assumes that we only have one project in the collection, since we currently don't support multiple projects.
-				Wrapper.AssemblyLoader.VersionNumber = (int)ssisProject.TargetSqlServerVersion;
+				if (i == 0)
+					Wrapper.AssemblyLoader.VersionNumber = (int)ssisProject.TargetSqlServerVersion;
 
 				try
 				{
@@ -59,6 +62,8 @@ namespace Daf.Core.Ssis
 					e.Data[Constants.ExceptionProjectKey] = ssisProject.Name;
 					throw;
 				}
+
+				i++;
 			}
 		}
 	}
