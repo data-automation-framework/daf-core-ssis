@@ -11,7 +11,7 @@ namespace Daf.Core.Ssis
 {
 	internal class Package
 	{
-		public Package(IonStructure.Package package, ProjectWrapper projectWrapper)
+		public Package(IonStructure.Package package, ProjectWrapper projectWrapper, List<ScriptProject> globalScriptProjects)
 		{
 			PackageWrapper = new PackageWrapper()
 			{
@@ -23,13 +23,13 @@ namespace Daf.Core.Ssis
 			SetParameters(package.Parameters);
 			SetVariables(package.Variables);
 			ConnectionManagerFactory.CreateConnectionManagers(PackageWrapper, package.Connections);
-			CreateTasks(projectWrapper, package.Tasks);
+			CreateTasks(projectWrapper, package.Tasks, globalScriptProjects);
 			SetPackageLocaleId(projectWrapper, package);
 		}
 
 		internal PackageWrapper PackageWrapper { get; }
 
-		private void CreateTasks(ProjectWrapper projectWrapper, List<Task> tasks)
+		private void CreateTasks(ProjectWrapper projectWrapper, List<Task> tasks, List<ScriptProject> globalScriptProjects)
 		{
 			if (tasks == null)
 				return;
@@ -38,18 +38,18 @@ namespace Daf.Core.Ssis
 			{
 				if (task is Script script && script.ScriptProjectReference != null)
 				{
-					foreach (ScriptProject globalScriptProject in Project.GlobalScriptProjects)
+					foreach (ScriptProject globalScriptProject in globalScriptProjects)
 					{
 						// Re-use the global script project if there is a match.
 						if (script.ScriptProjectReference.ScriptProjectName == globalScriptProject.Name)
 						{
-							TaskFactory.CreateTask(projectWrapper, PackageWrapper, PackageWrapper, task, globalScriptProject);
+							TaskFactory.CreateTask(projectWrapper, PackageWrapper, PackageWrapper, task, globalScriptProjects);
 							break;
 						}
 					}
 				}
 				else
-					TaskFactory.CreateTask(projectWrapper, PackageWrapper, PackageWrapper, task);
+					TaskFactory.CreateTask(projectWrapper, PackageWrapper, PackageWrapper, task, globalScriptProjects);
 			}
 		}
 

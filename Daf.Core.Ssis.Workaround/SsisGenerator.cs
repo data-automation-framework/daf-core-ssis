@@ -28,7 +28,7 @@ namespace Daf.Core.Ssis
 
 				ssisTimer.Stop();
 				string duration = TimeSpan.FromMilliseconds(ssisTimer.ElapsedMilliseconds).ToString(@"hh\:mm\:ss\.fff", CultureInfo.InvariantCulture);
-				Console.WriteLine($"Finished generating SSIS project for {filename} in {duration}");
+				Console.WriteLine($"Finished generating SSIS project{(ssisRootNode.SsisProjects.Count > 1 ? "s" : "")} for {filename} in {duration}");
 			}
 			else
 			{
@@ -39,13 +39,13 @@ namespace Daf.Core.Ssis
 
 		private static void GenerateProjects(List<SsisProject> projects)
 		{
-			int numGenerated = 0;
+			int count = 1;
 
 			foreach (SsisProject ssisProject in projects)
 			{
 				System.Diagnostics.Stopwatch projectTimer = System.Diagnostics.Stopwatch.StartNew();
 
-				Console.WriteLine($"Generating SSIS project \"{ssisProject.Name}\" {(projects.Count > 1 ? $"({numGenerated} / {projects.Count})" : "")}");
+				Console.WriteLine($"Generating SSIS project {ssisProject.Name} {(projects.Count > 1 ? $"({count}/{projects.Count})" : "")}");
 
 				Wrapper.AssemblyLoader.VersionNumber = (int)ssisProject.TargetSqlServerVersion;
 
@@ -69,9 +69,9 @@ namespace Daf.Core.Ssis
 
 				string duration = TimeSpan.FromMilliseconds(projectTimer.ElapsedMilliseconds).ToString(@"hh\:mm\:ss\.fff", CultureInfo.InvariantCulture);
 
-				Console.WriteLine($"Generated SSIS project {ssisProject.Name} in {duration}");
+				Console.WriteLine($"Generated SSIS project {ssisProject.Name} in {duration}{Environment.NewLine}");
 
-				numGenerated++;
+				count++;
 			}
 		}
 	}

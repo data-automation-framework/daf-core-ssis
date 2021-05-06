@@ -88,7 +88,7 @@ namespace Daf.Core.Ssis
 		{
 			try
 			{
-				Package package = new Package(ionPackage, ProjectWrapper);
+				Package package = new Package(ionPackage, ProjectWrapper, GlobalScriptProjects);
 				ProjectWrapper.AddPackage(package.PackageWrapper);
 			}
 			catch (Exception e)

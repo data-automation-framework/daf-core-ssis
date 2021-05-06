@@ -12,7 +12,7 @@ namespace Daf.Core.Ssis.Tasks
 	internal class ContainerExecutable
 	{
 		public static SequenceContainerWrapper CreateSequenceContainer(SequenceContainer sequenceContainer,
-			ProjectWrapper projectWrapper, PackageWrapper packageWrapper, ContainerWrapper containerWrapper)
+			ProjectWrapper projectWrapper, PackageWrapper packageWrapper, ContainerWrapper containerWrapper, List<ScriptProject> globalScriptProjects)
 		{
 			SequenceContainerWrapper sequenceContainerWrapper = new SequenceContainerWrapper(containerWrapper)
 			{
@@ -22,13 +22,13 @@ namespace Daf.Core.Ssis.Tasks
 			};
 
 			AddExpressions(sequenceContainerWrapper, sequenceContainer.PropertyExpressions);
-			CreateTasks(projectWrapper, packageWrapper, sequenceContainerWrapper, sequenceContainer.Tasks);
+			CreateTasks(projectWrapper, packageWrapper, sequenceContainerWrapper, sequenceContainer.Tasks, globalScriptProjects);
 
 			return sequenceContainerWrapper;
 		}
 
 		public static ForLoopContainerWrapper CreateForLoopContainer(ForLoopContainer forLoopContainer,
-			ProjectWrapper projectWrapper, PackageWrapper packageWrapper, ContainerWrapper containerWrapper)
+			ProjectWrapper projectWrapper, PackageWrapper packageWrapper, ContainerWrapper containerWrapper, List<ScriptProject> globalScriptProjects)
 		{
 			ForLoopContainerWrapper forLoopContainerWrapper = new ForLoopContainerWrapper(containerWrapper)
 			{
@@ -41,13 +41,13 @@ namespace Daf.Core.Ssis.Tasks
 			};
 
 			AddExpressions(forLoopContainerWrapper, forLoopContainer.PropertyExpressions);
-			CreateTasks(projectWrapper, packageWrapper, forLoopContainerWrapper, forLoopContainer.Tasks);
+			CreateTasks(projectWrapper, packageWrapper, forLoopContainerWrapper, forLoopContainer.Tasks, globalScriptProjects);
 
 			return forLoopContainerWrapper;
 		}
 
 		public static ForEachFromVariableLoopContainerWrapper CreateForEachFromVariableLoopContainer(ForEachFromVariableLoopContainer forEachFromVarLoopContainer,
-			ProjectWrapper projectWrapper, PackageWrapper packageWrapper, ContainerWrapper containerWrapper)
+			ProjectWrapper projectWrapper, PackageWrapper packageWrapper, ContainerWrapper containerWrapper, List<ScriptProject> globalScriptProjects)
 		{
 			ForEachFromVariableLoopContainerWrapper fefvlContainerWrapper = new ForEachFromVariableLoopContainerWrapper(containerWrapper)
 			{
@@ -61,7 +61,7 @@ namespace Daf.Core.Ssis.Tasks
 				fefvlContainerWrapper.AddVariableMapping(variableIndexMapping.Index, variableIndexMapping.VariableName);
 
 			AddExpressions(fefvlContainerWrapper, forEachFromVarLoopContainer.PropertyExpressions);
-			CreateTasks(projectWrapper, packageWrapper, fefvlContainerWrapper, forEachFromVarLoopContainer.Tasks);
+			CreateTasks(projectWrapper, packageWrapper, fefvlContainerWrapper, forEachFromVarLoopContainer.Tasks, globalScriptProjects);
 
 			return fefvlContainerWrapper;
 		}
@@ -75,7 +75,7 @@ namespace Daf.Core.Ssis.Tasks
 				containerWrapper.SetExpression(expression.PropertyName, expression.Value);
 		}
 
-		private static void CreateTasks(ProjectWrapper projectWrapper, PackageWrapper packageWrapper, ContainerWrapper containerWrapper, List<IonStructure.Task> tasks)
+		private static void CreateTasks(ProjectWrapper projectWrapper, PackageWrapper packageWrapper, ContainerWrapper containerWrapper, List<IonStructure.Task> tasks, List<ScriptProject> globalScriptProjects)
 		{
 			if (tasks == null)
 				return;
@@ -84,14 +84,14 @@ namespace Daf.Core.Ssis.Tasks
 			{
 				if (task is Script scriptTask && scriptTask.ScriptProjectReference != null)
 				{
-					foreach (ScriptProject scriptProject in Project.GlobalScriptProjects)
+					foreach (ScriptProject scriptProject in globalScriptProjects)
 					{
 						if (scriptTask.ScriptProjectReference.ScriptProjectName == scriptProject.Name)
-							TaskFactory.CreateTask(projectWrapper, packageWrapper, containerWrapper, task, scriptProject);
+							TaskFactory.CreateTask(projectWrapper, packageWrapper, containerWrapper, task, globalScriptProjects, scriptProject);
 					}
 				}
 				else
-					TaskFactory.CreateTask(projectWrapper, packageWrapper, containerWrapper, task);
+					TaskFactory.CreateTask(projectWrapper, packageWrapper, containerWrapper, task, globalScriptProjects);
 			}
 		}
 	}
