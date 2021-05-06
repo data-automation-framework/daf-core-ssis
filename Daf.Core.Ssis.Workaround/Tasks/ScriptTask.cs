@@ -40,7 +40,7 @@ namespace Daf.Core.Ssis.Tasks
 				ScriptTaskWrapper.ReadOnlyVariables = GetVariableNames(script.ScriptProject.ReadOnlyVariables, ScriptTaskScope.Package, projectWrapper, packageWrapper, containerWrapper);
 				ScriptTaskWrapper.ReadWriteVariables = GetVariableNames(script.ScriptProject.ReadWriteVariables, ScriptTaskScope.Package, projectWrapper, packageWrapper, containerWrapper);
 
-				AddAssemblyReferences(script.ScriptProject.AssemblyReferences);
+				AddAssemblyReferences(script.ScriptProject.AssemblyReferences, projectWrapper.Version);
 				AddSourceFiles(script.ScriptProject.Files);
 			}
 
@@ -61,16 +61,23 @@ namespace Daf.Core.Ssis.Tasks
 			ScriptTaskWrapper.ReadOnlyVariables = GetVariableNames(scriptProject.ReadOnlyVariables, ScriptTaskScope.Project, projectWrapper, packageWrapper, containerWrapper);
 			ScriptTaskWrapper.ReadWriteVariables = GetVariableNames(scriptProject.ReadWriteVariables, ScriptTaskScope.Project, projectWrapper, packageWrapper, containerWrapper);
 
-			AddAssemblyReferences(scriptProject.AssemblyReferences);
+			AddAssemblyReferences(scriptProject.AssemblyReferences, projectWrapper.Version);
 			AddSourceFiles(scriptProject.Files);
 		}
 
 		internal ScriptTaskWrapper ScriptTaskWrapper { get; }
 
-		private void AddAssemblyReferences(List<AssemblyReference> assemblyReferences)
+		private void AddAssemblyReferences(List<AssemblyReference> assemblyReferences, SqlServerVersion sqlServerVersion)
 		{
 			if (assemblyReferences == null)
 				return;
+
+			foreach (AssemblyReference reference in assemblyReferences)
+			{
+				// Set proper DLL version in case of multiple SSIS versions
+				if (reference.AssemblyPath.StartsWith("Microsoft.SqlServer", StringComparison.InvariantCulture))
+					reference.AssemblyPath += ", Version=" + (int)sqlServerVersion + ".*";
+			}
 
 			IEnumerable<string> assemblyPaths = assemblyReferences.ConvertAll(assemblyReference => assemblyReference.AssemblyPath);
 			ScriptTaskWrapper.AddReferences(assemblyPaths);
