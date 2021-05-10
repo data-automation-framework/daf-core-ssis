@@ -108,7 +108,7 @@ namespace Daf.Core.Ssis.Wrapper
 			{
 				// TODO: Instead of this, unload all loaded assemblies when the versionNumber is updated.
 				if (versionNumber.HasValue && versionNumber.Value != value)
-					throw new NotImplementedException("Functionality for changing the AssemblyLoader version to one other than the previously set one is not implemented yet!");
+					throw new NotImplementedException("Functionality for changing the AssemblyLoader version to one other than the one previously set is not implemented yet!");
 
 				versionNumber = value;
 			}
