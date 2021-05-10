@@ -106,8 +106,9 @@ namespace Daf.Core.Ssis.Wrapper
 			}
 			set
 			{
-				if (versionNumber.HasValue)
-					throw new NotSupportedException("Changing the AssemblyLoader version after it has already been set is not supported.");
+				// TODO: Instead of this, unload all loaded assemblies when the versionNumber is updated.
+				if (versionNumber.HasValue && versionNumber.Value != value)
+					throw new NotImplementedException("Functionality for changing the AssemblyLoader version to one other than the one previously set is not implemented yet!");
 
 				versionNumber = value;
 			}

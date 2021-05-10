@@ -2,6 +2,7 @@
 // Copyright © 2021 Oscar Björhn, Petter Löfgren and contributors
 
 using System;
+using System.Collections.Generic;
 using Daf.Core.Ssis.IonStructure;
 using Daf.Core.Ssis.Tasks;
 using Daf.Core.Ssis.Wrapper.Wrappers;
@@ -11,7 +12,7 @@ namespace Daf.Core.Ssis.Factories
 	internal static class TaskFactory
 	{
 		public static void CreateTask(ProjectWrapper projectWrapper, PackageWrapper packageWrapper, ContainerWrapper containerWrapper,
-			IonStructure.Task task, ScriptProject referencedGlobalScriptProject = null)
+			IonStructure.Task task, List<ScriptProject> globalScriptProjects, ScriptProject referencedGlobalScriptProject = null)
 		{
 			try
 			{
@@ -38,13 +39,13 @@ namespace Daf.Core.Ssis.Factories
 						executableWrapper = scriptTask.ScriptTaskWrapper;
 						break;
 					case ForLoopContainer forLoopContainer:
-						executableWrapper = ContainerExecutable.CreateForLoopContainer(forLoopContainer, projectWrapper, packageWrapper, containerWrapper);
+						executableWrapper = ContainerExecutable.CreateForLoopContainer(forLoopContainer, projectWrapper, packageWrapper, containerWrapper, globalScriptProjects);
 						break;
 					case ForEachFromVariableLoopContainer forEachFromVarLoopContainer:
-						executableWrapper = ContainerExecutable.CreateForEachFromVariableLoopContainer(forEachFromVarLoopContainer, projectWrapper, packageWrapper, containerWrapper);
+						executableWrapper = ContainerExecutable.CreateForEachFromVariableLoopContainer(forEachFromVarLoopContainer, projectWrapper, packageWrapper, containerWrapper, globalScriptProjects);
 						break;
 					case SequenceContainer sequenceContainer:
-						executableWrapper = ContainerExecutable.CreateSequenceContainer(sequenceContainer, projectWrapper, packageWrapper, containerWrapper);
+						executableWrapper = ContainerExecutable.CreateSequenceContainer(sequenceContainer, projectWrapper, packageWrapper, containerWrapper, globalScriptProjects);
 						break;
 				}
 
