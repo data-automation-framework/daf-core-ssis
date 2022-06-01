@@ -24,7 +24,7 @@ jobs:
       - name: Continue only if the create-release label exists, fail otherwise.
         if: steps.labelcheck.outputs.result != 'true'
         run: exit 1
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Avoid shallow clone so nbgv can do its work.
       - name: Setup Nerdbank.GitVersioning
@@ -63,7 +63,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.x # SDK Version to use.
+          dotnet-version: 6.0.x # SDK Version to use.
           source-url: https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
