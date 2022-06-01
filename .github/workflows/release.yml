@@ -24,7 +24,7 @@ jobs:
       - name: Continue only if the create-release label exists, fail otherwise.
         if: steps.labelcheck.outputs.result != 'true'
         run: exit 1
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Avoid shallow clone so nbgv can do its work.
       - name: Setup Nerdbank.GitVersioning
@@ -50,7 +50,7 @@ jobs:
         with:
           dotnet-version: 3.1.x # SDK Version to use. We start by installing 3.1.* for msbuild to use when building DotnetFullOnly. This is replaced later, by 5.0.*
       - name: Setup Nuget
-        uses: nuget/setup-nuget@v1.0.5
+        uses: nuget/setup-nuget@v1.0.6
       - name: Setup NuGet Source
         run: nuget sources add -Name "Placeholder" -Source "https://nuget.pkg.github.com/data-automation-framework/index.json" -UserName "bjorhn" -Password "${{ secrets.GITHUB_TOKEN }}"
         shell: cmd
@@ -63,7 +63,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 5.0.x # SDK Version to use.
+          dotnet-version: 6.0.x # SDK Version to use.
           source-url: https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
