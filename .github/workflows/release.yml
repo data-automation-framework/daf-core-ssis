@@ -46,7 +46,7 @@ jobs:
           configuration: "configs/configuration.json"
           toTag: v${{ steps.nbgv.outputs.SimpleVersion }}
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 3.1.x # SDK Version to use. We start by installing 3.1.* for msbuild to use when building DotnetFullOnly. This is replaced later, by 5.0.*
       - name: Setup Nuget
@@ -61,7 +61,7 @@ jobs:
       - name: Build with MSBuild
         run: msbuild Daf.Core.Ssis_DotnetFullOnly.sln /property:Configuration=Release
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x # SDK Version to use.
           source-url: https://api.nuget.org/v3/index.json
