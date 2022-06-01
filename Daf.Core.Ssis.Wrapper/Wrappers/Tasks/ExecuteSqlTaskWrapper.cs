@@ -29,7 +29,7 @@ namespace Daf.Core.Ssis.Wrapper.Wrappers.Tasks
 
 		public dynamic ResultSetType
 		{
-			set { ExecuteSqlTask.ResultSetType = (dynamic)Convert.ChangeType(Enum.ToObject(resultSetTypeType, value), resultSetTypeType, CultureInfo.InvariantCulture); }
+			set { ExecuteSqlTask.ResultSetType = Convert.ChangeType(Enum.ToObject(resultSetTypeType, value), resultSetTypeType, CultureInfo.InvariantCulture); }
 		}
 
 		public string SqlStatementSource { set { ExecuteSqlTask.SqlStatementSource = value; } }
@@ -38,7 +38,7 @@ namespace Daf.Core.Ssis.Wrapper.Wrappers.Tasks
 
 		public dynamic TypeConversionMode
 		{
-			set { ExecuteSqlTask.TypeConversionMode = (dynamic)Convert.ChangeType(Enum.ToObject(typeConversionModeType, value), typeConversionModeType, CultureInfo.InvariantCulture); }
+			set { ExecuteSqlTask.TypeConversionMode = Convert.ChangeType(Enum.ToObject(typeConversionModeType, value), typeConversionModeType, CultureInfo.InvariantCulture); }
 		}
 
 		public void AddParameterBinding(int dataType, string variableName, int parameterDirection, string parameterName, int parameterSize)

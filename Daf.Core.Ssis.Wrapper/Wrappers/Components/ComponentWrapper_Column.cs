@@ -55,7 +55,7 @@ namespace Daf.Core.Ssis.Wrapper.Wrappers.Components
 			{
 				foreach ((string SourceColumn, _) in CustomMappingColumns)
 				{
-					if (string.Compare(SourceColumn, columnName, StringComparison.OrdinalIgnoreCase) == 0)
+					if (string.Equals(SourceColumn, columnName, StringComparison.OrdinalIgnoreCase))
 						return true;
 				}
 			}
@@ -69,7 +69,7 @@ namespace Daf.Core.Ssis.Wrapper.Wrappers.Components
 			{
 				foreach ((_, string TargetColumn) in CustomMappingColumns)
 				{
-					if (string.Compare(TargetColumn, columnName, StringComparison.OrdinalIgnoreCase) == 0)
+					if (string.Equals(TargetColumn, columnName, StringComparison.OrdinalIgnoreCase))
 						return true;
 				}
 			}
