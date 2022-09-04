@@ -50,7 +50,7 @@ jobs:
         with:
           dotnet-version: 3.1.x # SDK Version to use. We start by installing 3.1.* for msbuild to use when building DotnetFullOnly. This is replaced later, by 5.0.*
       - name: Setup Nuget
-        uses: nuget/setup-nuget@v1.0.6
+        uses: nuget/setup-nuget@v1.0.7
       - name: Setup NuGet Source
         run: nuget sources add -Name "Placeholder" -Source "https://nuget.pkg.github.com/data-automation-framework/index.json" -UserName "bjorhn" -Password "${{ secrets.GITHUB_TOKEN }}"
         shell: cmd
